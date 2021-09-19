@@ -13,7 +13,7 @@ public class GroupWareApiController {
 
     private final GroupWaresService groupWaresService;
 
-    @PutMapping("/api/v1/posts")
+    @PostMapping("/api/v1/posts")
     public Long save(@RequestBody GroupWaresSaveRequestDto requestDto){
         return  groupWaresService.save(requestDto);
     }

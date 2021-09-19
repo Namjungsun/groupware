@@ -5,9 +5,12 @@ import com.groupware.springboot.domain.groupwares.GroupWares;
 import com.groupware.springboot.domain.groupwares.GroupWaresRepository;
 import com.groupware.springboot.web.dto.GroupWaresSaveRequestDto;
 import com.groupware.springboot.web.dto.GroupWaresUpdateRequestDto;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.aspectj.lang.annotation.After;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
+
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -16,12 +19,14 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class GroupWareApiControllerTest {
 
@@ -33,22 +38,23 @@ public class GroupWareApiControllerTest {
 
     @Autowired
     private GroupWaresRepository groupWaresRepository;
-
-    @After
+/*
+    @AfterEach
     public void cleanup() throws Exception{
         groupWaresRepository.deleteAll();
     }
-
+*/
     @Test
-    public void 등록된다() throws Exception{
+    public void TEST_등록된다() throws Exception{
         //given
         String title = "title";
         String content = "content";
+        String author = "author";
 
         GroupWaresSaveRequestDto requestDto = GroupWaresSaveRequestDto.builder()
                                                 .title(title)
                                                 .content(content)
-                                                .author("author")
+                                                .author(author)
                                                 .build();
 
         String url = "http://localhost:" + port + "/api/v1/posts";
@@ -60,14 +66,15 @@ public class GroupWareApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        //List<GroupWares> all = GroupWaresRepository.findAll();
+        List<GroupWares> all = groupWaresRepository.findAll();
 
-        //assertThat(all.get(0).getTitle()).isEqualTo(title);
-        //assertThat(all.get(0).getContent()).isEqualTo(content);
+        assertThat(all.get(0).getTitle()).isEqualTo(title);
+        assertThat(all.get(0).getContent()).isEqualTo(content);
     }
 
+
     @Test
-    public void 수정된다() throws Exception{
+    public void TEST_수정된다() throws Exception{
         //given
         GroupWares saveGroupWares = groupWaresRepository.save(GroupWares.builder()
                                                             .title("title")
@@ -76,6 +83,7 @@ public class GroupWareApiControllerTest {
                                                             .build());
 
         Long updateId = saveGroupWares.getId();
+
         String expectedTitle = "title2";
         String expectedContent = "content2";
 
@@ -95,10 +103,10 @@ public class GroupWareApiControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isGreaterThan(0L);
 
-        //List<GroupWares> all = GroupWaresRepository.findAll();
+        List<GroupWares> all = groupWaresRepository.findAll();
 
-        //assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
-        //assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
+        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
+        assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
     }
 
 

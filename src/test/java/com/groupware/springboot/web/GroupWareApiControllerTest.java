@@ -57,7 +57,7 @@ public class GroupWareApiControllerTest {
                                                 .author(author)
                                                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/posts";
+        String url = "http://localhost:" + port + "/org/member";
 
         //when
         ResponseEntity<Long> responseEntity = restTemplate.postForEntity(url, requestDto, Long.class);
@@ -92,7 +92,7 @@ public class GroupWareApiControllerTest {
                 .content(expectedContent)
                 .build();
 
-        String url = "http://localhost:" + port + "/api/v1/posts/" + updateId;
+        String url = "http://localhost:" + port + "/org/member/" + updateId;
 
         HttpEntity<GroupWaresUpdateRequestDto> requestEntity = new HttpEntity<>(requestDto);
 

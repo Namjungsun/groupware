@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class GroupWaresService {
@@ -34,5 +36,16 @@ public class GroupWaresService {
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. ID="+ id));
 
         return new GroupWaresResponseDto(entity);
+    }
+
+    public List<GroupWares> findAll() {
+        return groupWaresRepository.findAll();
+    }
+
+    @Transactional
+    public void delete(Long id) {
+        GroupWares entity = groupWaresRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. ID="+ id));
+        groupWaresRepository.delete(entity);
     }
 }

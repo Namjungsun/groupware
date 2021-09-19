@@ -7,12 +7,14 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class GroupWaresUpdateRequestDto {
-    private String title;
-    private String content;
+    private String type ;
+    private String name ;
+    private String code ;
 
     @Builder
-    public GroupWaresUpdateRequestDto(String title, String content){
-        this.title = title;
-        this.content = content;
+    public GroupWaresUpdateRequestDto(String type, String name, String code){
+        this.type = type;
+        this.name = name;
+        this.code = code;
     }
 }

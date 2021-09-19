@@ -7,14 +7,14 @@ import lombok.Getter;
 public class GroupWaresResponseDto {
 
     private Long id;
-    private String title;
-    private String content;
-    private String author;
+    private String type ;
+    private String name ;
+    private String code ;
 
     public GroupWaresResponseDto(GroupWares entity){
         this.id = entity.getId();
-        this.title = entity.getTitle();
-        this.content = entity.getContent();
-        this.author = entity.getAuthor();
+        this.type = entity.getType();
+        this.name = entity.getName();
+        this.code = entity.getCode();
     }
 }

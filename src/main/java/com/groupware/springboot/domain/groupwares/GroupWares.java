@@ -15,23 +15,20 @@ public class GroupWares {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 500, nullable =false)
-    private String title;
-
-    @Column(columnDefinition = "Text", nullable = false)
-    private String content;
-
-    private String author;
+    private String type ;
+    private String name ;
+    private String code ;
 
     @Builder
-    public GroupWares(String title, String content, String author){
-        this.title = title;
-        this.content = content;
-        this.author = author;
+    public GroupWares(String type, String name, String code){
+        this.type = type;
+        this.name = name;
+        this.code = code;
     }
 
-    public void update(String title, String content){
-        this.title = title;
-        this.content = content;
+    public void update(String type, String name, String code){
+        this.type = type;
+        this.name = name;
+        this.code = code;
     }
 }

@@ -8,22 +8,22 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class GroupWaresSaveRequestDto {
-    private String title;
-    private String content;
-    private String author;
+    private String type ;
+    private String name ;
+    private String code ;
 
     @Builder
-    public GroupWaresSaveRequestDto(String title, String content, String author){
-        this.title = title;
-        this.content = content;
-        this.author = author;
+    public GroupWaresSaveRequestDto(String type, String name, String code){
+        this.type = type;
+        this.name = name;
+        this.code = code;
     }
 
     public GroupWares toEntity(){
         return GroupWares.builder()
-                .title(title)
-                .content(content)
-                .author(author)
+                .type(type)
+                .name(name)
+                .code(code)
                 .build();
     }
 

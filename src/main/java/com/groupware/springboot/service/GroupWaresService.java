@@ -26,7 +26,7 @@ public class GroupWaresService {
         GroupWares groupWares = groupWaresRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 사용자가 없습니다. ID="+ id));
 
-        groupWares.update(requestDto.getTitle(), requestDto.getContent());
+        groupWares.update(requestDto.getType(), requestDto.getName(), requestDto.getCode() );
 
         return id;
     }

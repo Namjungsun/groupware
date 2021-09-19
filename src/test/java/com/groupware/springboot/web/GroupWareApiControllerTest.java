@@ -47,14 +47,14 @@ public class GroupWareApiControllerTest {
     @Test
     public void TEST_등록된다() throws Exception{
         //given
-        String title = "title";
-        String content = "content";
-        String author = "author";
+        String type = "Member";
+        String name = "박지성";
+        String code = "002";
 
         GroupWaresSaveRequestDto requestDto = GroupWaresSaveRequestDto.builder()
-                                                .title(title)
-                                                .content(content)
-                                                .author(author)
+                                                .type(type)
+                                                .name(name)
+                                                .code(code)
                                                 .build();
 
         String url = "http://localhost:" + port + "/org/member";
@@ -68,8 +68,9 @@ public class GroupWareApiControllerTest {
 
         List<GroupWares> all = groupWaresRepository.findAll();
 
-        assertThat(all.get(0).getTitle()).isEqualTo(title);
-        assertThat(all.get(0).getContent()).isEqualTo(content);
+        assertThat(all.get(0).getType()).isEqualTo(type);
+        assertThat(all.get(0).getName()).isEqualTo(name);
+        assertThat(all.get(0).getCode()).isEqualTo(code);
     }
 
 
@@ -77,19 +78,21 @@ public class GroupWareApiControllerTest {
     public void TEST_수정된다() throws Exception{
         //given
         GroupWares saveGroupWares = groupWaresRepository.save(GroupWares.builder()
-                                                            .title("title")
-                                                            .content("content")
-                                                            .author("author")
+                                                            .type("type")
+                                                            .name("name")
+                                                            .code("code")
                                                             .build());
 
         Long updateId = saveGroupWares.getId();
 
-        String expectedTitle = "title2";
-        String expectedContent = "content2";
+        String type = "Member";
+        String name = "손흥민";
+        String code = "003";
 
         GroupWaresUpdateRequestDto requestDto = GroupWaresUpdateRequestDto.builder()
-                .title(expectedTitle)
-                .content(expectedContent)
+                .type(type)
+                .name(name)
+                .code(code)
                 .build();
 
         String url = "http://localhost:" + port + "/org/member/" + updateId;
@@ -105,10 +108,8 @@ public class GroupWareApiControllerTest {
 
         List<GroupWares> all = groupWaresRepository.findAll();
 
-        assertThat(all.get(0).getTitle()).isEqualTo(expectedTitle);
-        assertThat(all.get(0).getContent()).isEqualTo(expectedContent);
+        assertThat(all.get(0).getType()).isEqualTo(type);
+        assertThat(all.get(0).getName()).isEqualTo(name);
+        assertThat(all.get(0).getCode()).isEqualTo(code);
     }
-
-
-
 }
